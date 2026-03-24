@@ -1,0 +1,403 @@
+.title {
+  position: fixed;   
+  bottom: 0;
+  right: 0;
+  z-index: 10;       
+  pointer-events: none; 
+}
+
+.title img {
+  display: block;
+  width: 1400px;      
+  max-width: 75vw;
+}
+
+/* ============================================================
+   HUMAN OR MACHINE — style.css
+   ============================================================ */
+
+/* ── CSS VARIABLES ─────────────────────────────────────────── */
+:root {
+  --teal:      #105666;
+  --rose:      #D3968C;
+  --cream:     #F7F4D5;
+  --sage:      #839958;
+  --dark:      #0A3323;
+  --parchment: #EDE8C0;
+}
+
+/* ── RESET ──────────────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── BODY — three-layer background ─────────────────────────── */
+/*
+  Layer order (front to back):
+    1. bordersize.png  — tree arch frame, sits on top
+    2. scrollsize.png  — horizontal parchment scroll
+    3. forestback.png  — forest background scene
+*/
+body {
+  font-family: 'Lora', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: default;
+
+  background-image:
+    url(img/bordersize.png),
+    url(img/scrollsize.png),
+    url(img/forestback.png);
+
+  background-size:      cover, cover, cover;
+  background-repeat:    no-repeat, no-repeat, no-repeat;
+  background-position:  center center, center center, center center;
+  background-attachment: fixed, fixed, fixed;
+  background-color: #3a5c2a; /* fallback while images load */
+}
+
+/* Horror overrides entire background */
+body.horror-mode {
+  background-image: none !important;
+  background-color: #050505 !important;
+  cursor: none !important;
+}
+
+/* ── PAGE LAYOUT ─────────────────────────────────────────────
+   Centre the game box in the viewport so it sits inside
+   the parchment scroll area of the background images
+──────────────────────────────────────────────────────────────── */
+.page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ── GAME BOX ────────────────────────────────────────────────
+   Transparent so the scroll image behind it shows through.
+   Sized to match the parchment area in the background.
+──────────────────────────────────────────────────────────────── */
+.game-box {
+  position: relative;
+  width: min(50vw, 680px);
+  min-width: 300px;
+  background: transparent;
+  padding: 28px 36px 32px;
+}
+
+/* ── SCROLL-BODY — transparent, no decoration ───────────────── */
+.scroll-body {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.scroll-body::before { display: none; }
+
+/* Hide old decorative scroll chrome */
+.scroll-cap,
+.scroll-cap-top,
+.scroll-cap-bottom,
+.scroll-knob,
+.scroll-side,
+.scroll-side-l,
+.scroll-side-r { display: none; }
+
+/* ── SHARED GAME COMPONENTS ──────────────────────────────── */
+.puzzle-title {
+  font-family: 'Alice', serif;
+  color: var(--teal);
+  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+  text-align: center;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  font-weight: 400;
+}
+.puzzle-sub {
+  font-family: 'Irish Grover', cursive;
+  font-style: italic;
+  color: #7a6040;
+  font-size: 0.78rem;
+  text-align: center;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.btn-green {
+  background: linear-gradient(135deg, #6ab84a, #3a8a1a);
+  color: #fff; border: none; padding: 11px 26px;
+  border-radius: 28px; font-family: 'Irish Grover', cursive; font-size: 0.92rem; font-weight: 600;
+  cursor: pointer; box-shadow: 0 4px 14px rgba(58,138,26,0.4);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn-green:hover { transform: scale(1.06); box-shadow: 0 6px 20px rgba(58,138,26,0.5); }
+
+.btn-red {
+  background: linear-gradient(135deg, #d87868, #a04838);
+  color: #fff; border: none; padding: 11px 26px;
+  border-radius: 28px; font-family: 'Irish Grover', cursive; font-size: 0.92rem; font-weight: 600;
+  cursor: pointer; transition: transform .15s;
+}
+.btn-red:hover { transform: scale(1.04); }
+
+.btn-teal {
+  background: linear-gradient(135deg, var(--teal), #0a3f52);
+  color: var(--cream); border: none; padding: 10px 24px;
+  border-radius: 8px; font-family: 'Irish Grover', cursive; font-size: 0.88rem;
+  cursor: pointer; transition: all .2s;
+  box-shadow: 0 3px 10px rgba(16,86,102,0.3);
+}
+.btn-teal:hover { transform: translateY(-2px); }
+
+.confirm-row {
+  display: flex; gap: 14px; justify-content: center;
+  margin-top: 22px; flex-wrap: wrap;
+}
+
+.result-pass,
+.result-fail {
+  display: none; text-align: center; margin-top: 18px;
+  padding: 14px 20px; border-radius: 8px;
+  font-family: 'Irish Grover', cursive; font-size: 1rem; line-height: 1.5;
+}
+.result-pass { background: rgba(131,153,88,.25); color: var(--dark); border: 2px solid var(--sage); }
+.result-fail { background: rgba(211,150,140,.25); color: #7a2010; border: 2px solid var(--rose); }
+
+/* ── PUZZLE 1 — Dress the Button ─────────────────────────── */
+#p-dress { width: 100%; }
+.dress-stage {
+  display: flex; gap: 20px; align-items: flex-start; justify-content: center;
+  flex-wrap: wrap; margin: 10px 0 16px;
+}
+.icons-tray {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  padding: 12px; background: rgba(16,86,102,.07); border: 1.5px dashed #b0a070;
+  border-radius: 10px; min-width: 160px;
+}
+.drag-icon {
+  font-size: 1.8rem; text-align: center; padding: 8px;
+  background: rgba(247,244,213,.85); border: 1.5px solid #c4b080; border-radius: 8px;
+  cursor: grab; user-select: none; transition: transform .15s, box-shadow .15s;
+  touch-action: none;
+}
+.drag-icon:hover  { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+.drag-icon:active { cursor: grabbing; }
+.drag-icon.dragging { opacity: .5; }
+
+.drop-zone {
+  width: 160px; min-height: 180px;
+  border: 3px dashed var(--teal); border-radius: 12px;
+  background: rgba(247,244,213,.6);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; transition: background .2s; padding: 10px;
+}
+.drop-zone.over { background: rgba(131,153,88,.2); border-color: var(--sage); }
+.drop-zone .drop-label {
+  font-family: 'Irish Grover', cursive; font-size: 0.75rem; color: #9a8a60;
+  margin-bottom: 8px; text-align: center;
+}
+.drop-zone .dropped-icons {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; font-size: 1.6rem;
+}
+.drop-zone .confirm-inside {
+  font-family: 'Irish Grover', cursive; font-size: 0.9rem; font-weight: 600;
+  color: var(--teal); margin-top: 10px;
+  padding: 8px 16px; border: 2px solid var(--teal); border-radius: 20px;
+  background: rgba(247,244,213,.9);
+}
+.ghost-icon {
+  position: fixed; pointer-events: none; z-index: 9999;
+  font-size: 2rem; transform: translate(-50%,-50%); opacity: .85;
+}
+
+/* ── PUZZLE 2 — Text Sound ───────────────────────────────── */
+#p-text-sound .options { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.sound-opt {
+  background: rgba(247,244,213,.85); border: 2px solid #c4b080;
+  padding: 13px 18px; border-radius: 8px;
+  font-family: 'Irish Grover', cursive; font-size: .88rem; color: var(--dark);
+  cursor: pointer; transition: all .2s; display: flex; align-items: flex-start; gap: 10px;
+  line-height: 1.5;
+}
+.sound-opt:hover { border-color: var(--teal); background: rgba(240,234,208,.95); }
+.sound-opt .letter { font-family: 'Alice', serif; font-weight: 700; color: var(--teal); flex-shrink: 0; }
+.flash-correct { animation: flash-c .5s ease; background: rgba(131,153,88,.3) !important; }
+.flash-wrong   { animation: flash-w .4s ease; background: rgba(211,150,140,.3) !important; }
+@keyframes flash-c { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
+@keyframes flash-w { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)} }
+
+/* ── PUZZLE 3 — Audio Sound ──────────────────────────────── */
+#p-audio-sound .audio-grid { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.audio-opt {
+  background: rgba(247,244,213,.85); border: 2px solid #c4b080;
+  border-radius: 10px; padding: 14px 18px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all .2s;
+}
+.audio-opt:hover { border-color: var(--teal); background: rgba(240,234,208,.95); }
+.audio-play-btn {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--teal), #083f52);
+  border: none; color: white; font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 3px 10px rgba(16,86,102,.3); transition: transform .15s;
+}
+.audio-play-btn:hover  { transform: scale(1.1); }
+.audio-play-btn.playing { background: linear-gradient(135deg, var(--sage), #5a7030); }
+.audio-opt-label { font-family: 'Irish Grover', cursive; font-size: .88rem; color: var(--dark); line-height: 1.4; }
+.audio-opt-label .audio-tag { display: block; font-family: 'Alice', serif; font-size: .75rem; color: var(--teal); margin-bottom: 2px; }
+.audio-select-btn {
+  margin-left: auto; padding: 8px 16px; border-radius: 20px;
+  font-family: 'Irish Grover', cursive; font-size: .82rem; font-weight: 600;
+  background: rgba(247,244,213,.9); border: 2px solid var(--teal); color: var(--teal);
+  cursor: pointer; flex-shrink: 0; transition: all .15s;
+}
+.audio-select-btn:hover { background: var(--teal); color: white; }
+
+/* ── PUZZLE 4 — Moral Dilemma ────────────────────────────── */
+#p-moral .dilemma-box {
+  background: rgba(16,86,102,.1); border-left: 4px solid var(--teal);
+  padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px;
+  font-family: 'Irish Grover', cursive; font-style: italic;
+  color: var(--dark); font-size: .88rem; line-height: 1.6;
+}
+#p-moral .choices { display: flex; flex-direction: column; gap: 9px; }
+.choice-btn {
+  background: rgba(247,244,213,.85); border: 2px solid #c4b080;
+  padding: 11px 16px; border-radius: 8px;
+  font-family: 'Irish Grover', cursive; font-size: .88rem; color: var(--dark);
+  cursor: pointer; transition: all .2s; text-align: left;
+}
+.choice-btn:hover { border-color: var(--rose); background: rgba(245,232,228,.9); }
+
+/* ── PUZZLE 5 — Mischief Canvas ──────────────────────────── */
+#p-mischief { width: 100%; text-align: center; }
+.disclaimer-box {
+  background: rgba(211,150,140,.15); border: 1px solid var(--rose);
+  border-radius: 8px; padding: 7px 14px; margin-bottom: 12px;
+  font-family: 'Irish Grover', cursive; font-size: .72rem; color: #7a3020;
+  line-height: 1.4; text-align: left;
+}
+#mischief-canvas {
+  border: 3px solid var(--teal); border-radius: 8px;
+  background: #1a3a2a; display: block; margin: 0 auto;
+  cursor: crosshair; max-width: 100%;
+}
+.controls-hint {
+  display: inline-flex; gap: 8px; margin: 8px auto; flex-wrap: wrap; justify-content: center;
+}
+.key-badge {
+  background: #2a1a08; color: #e0c880; border: 1.5px solid #a08040;
+  border-radius: 6px; padding: 3px 10px; font-family: monospace; font-size: .85rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,.4);
+}
+#mischief-status {
+  font-family: 'Irish Grover', cursive; font-size: .88rem;
+  color: var(--teal); margin-top: 6px; min-height: 24px;
+}
+
+/* ── PUZZLE 6 — Body Part ────────────────────────────────── */
+#p-body { width: 100%; }
+.body-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0;
+}
+.body-btn {
+  background: rgba(247,244,213,.85); border: 2px solid #c4b080;
+  border-radius: 10px; padding: 14px 8px;
+  font-family: 'Irish Grover', cursive; font-size: .85rem; color: var(--dark);
+  cursor: pointer; transition: all .2s; text-align: center; line-height: 1.3;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.body-btn .body-emoji { font-size: 1.6rem; }
+.body-btn:hover    { border-color: var(--teal); background: rgba(240,234,208,.95); transform: scale(1.04); }
+.body-btn.selected { background: var(--teal); color: var(--cream); border-color: var(--teal); }
+
+/* ── PUZZLE 7 — Chase Button ─────────────────────────────── */
+#p-chase { width: 100%; }
+.chase-arena {
+  position: relative; width: 100%; height: 200px;
+  border: 2px dashed #c4b080; border-radius: 10px;
+  background: rgba(131,153,88,.08); overflow: hidden; margin-bottom: 12px;
+}
+.chase-btn {
+  position: absolute; border: none; padding: 10px 20px; border-radius: 24px;
+  font-family: 'Irish Grover', cursive; font-size: .88rem; font-weight: 600;
+  cursor: pointer; transition: none; white-space: nowrap;
+  box-shadow: 0 3px 12px rgba(0,0,0,.2); pointer-events: all;
+}
+.chase-btn-correct      { background: linear-gradient(135deg,#6ab84a,#3a8a1a); color: #fff; }
+.chase-btn-decoy-purple { background: linear-gradient(135deg,#9060c0,#603090); color: #fff; }
+.chase-btn-decoy-yellow { background: linear-gradient(135deg,#d4b020,#a07808); color: #fff; }
+.chase-btn-decoy-orange { background: linear-gradient(135deg,#d08030,#a05010); color: #fff; }
+.chase-timer { text-align: center; font-family: 'Alice', serif; font-size: 1rem; color: var(--teal); }
+
+/* ── PUZZLE 8 — Horror ───────────────────────────────────── */
+.horror-cursor {
+  position: fixed; pointer-events: none; z-index: 99999;
+  width: 16px; height: 16px; margin: -8px 0 0 -8px;
+  border-radius: 50%; background: rgba(200,0,0,.7);
+  box-shadow: 0 0 10px rgba(200,0,0,.8); display: none;
+}
+body.horror-mode .horror-cursor { display: block; }
+body.horror-mode .page-wrapper  { background: transparent; }
+
+#horror-q-phase .horror-question {
+  font-family: 'Alice', serif; font-size: clamp(1.1rem,2.5vw,1.4rem);
+  color: #cc2222; text-align: center; margin-bottom: 20px; line-height: 1.5;
+  text-shadow: 0 0 15px rgba(180,0,0,.5);
+}
+.horror-yn { display: flex; gap: 16px; justify-content: center; }
+.horror-yn button {
+  background: #1a0404; color: #cc2222; border: 1.5px solid #440000;
+  padding: 10px 24px; border-radius: 6px;
+  font-family: 'Alice', serif; font-size: .9rem; cursor: pointer;
+  transition: all .2s; letter-spacing: .05em;
+}
+.horror-yn button:hover { background: #2a0808; border-color: #880000; color: #ff4444; }
+
+#horror-find-phase { display: none; }
+.horror-forest-frame {
+  position: relative; width: 100%; padding-top: 56%;
+  background: #030303; border: 2px solid #330000;
+  border-radius: 6px; overflow: hidden; margin-bottom: 10px;
+}
+.horror-forest-frame svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+#horror-exit-btn {
+  position: absolute; z-index: 10;
+  background: #1a0000; color: #ff2222; border: 2px solid #880000;
+  padding: 6px 16px; border-radius: 4px;
+  font-family: 'Alice', serif; font-size: .8rem; cursor: pointer;
+  box-shadow: 0 0 10px rgba(180,0,0,.4); letter-spacing: .08em; transition: none;
+}
+#horror-exit-btn:hover { background: #330000; }
+.horror-timer-bar  { height: 5px; background: #1a0000; border-radius: 3px; margin-top: 6px; }
+.horror-timer-fill {
+  height: 100%; background: linear-gradient(90deg,#880000,#cc2222);
+  border-radius: 3px; transition: width .1s linear;
+}
+.horror-flicker { animation: flicker-anim .15s ease infinite alternate; }
+@keyframes flicker-anim { 0%{opacity:1} 50%{opacity:.88} 100%{opacity:.95} }
+.horror-msg {
+  font-family: 'Irish Grover', cursive; font-style: italic;
+  color: #884444; font-size: .78rem; text-align: center; margin-top: 6px;
+}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────── */
+h1         { font-family: "Irish Grover"; font-size: 24px; font-weight: 700; line-height: 26.4px; }
+h3         { font-family: "Irish Grover"; font-size: 14px; font-weight: 700; line-height: 15.4px; }
+p          { font-family: "Irish Grover"; font-size: 14px; font-weight: 400; line-height: 20px; }
+blockquote { font-family: "Irish Grover"; font-size: 21px; font-weight: 400; line-height: 30px; }
+pre        { font-family: "Irish Grover"; font-size: 13px; font-weight: 400; line-height: 18.57px; }
+.alice-regular { font-family: "Alice", serif; font-weight: 400; font-style: normal; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .game-box    { width: 88vw; padding: 18px 16px 22px; }
+  .body-grid   { grid-template-columns: repeat(2, 1fr); }
+  .icons-tray  { grid-template-columns: repeat(3, 1fr); }
+  .chase-arena { height: 160px; }
+}

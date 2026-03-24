@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CAPTCHA</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style (4).css">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Irish+Grover" /> 
+
+    </head>
+
+
+
+
+
+
+
+
+    
+    <body>
+
+<div class="title">
+    <img src="img/title.png" alt="Human or Machine">
+  </div>
+
+<!-- ── OUTER WRAPPER: centres game in viewport ──────────────── -->
+<div class="page-wrapper">
+
+  <!-- ── GAME BOX: transparent, sits over parchment scroll ──── -->
+  <div class="game-box">
+
+    <!-- ── GAME PANELS ──────────────────────────────────────── -->
+    <div class="scroll-body" id="scrollBody">
+
+      
+      <div id="p-dress" style="display:none; width:100%;">
+        <div class="puzzle-title">Dress the Confirm Button</div>
+        <div class="puzzle-sub">Drag your favourite adornments onto the button below · Only a human has favourites</div>
+        <div class="dress-stage">
+          <div class="icons-tray" id="iconsTray">
+            <div class="drag-icon" data-icon="🎩" draggable="true">
+              <img src="img/hatemoji.png" alt="top hat" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">
+            </div>
+            <div class="drag-icon" data-icon="🕶️" draggable="true"><img src="img/glassesemoji.png" alt="glasses" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;"></div>
+            <div class="drag-icon" data-icon="🧣" draggable="true"><img src="img/scarfemoji.png" alt=" Scarf" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;"></div>
+            <div class="drag-icon" data-icon="💍" draggable="true"><img src="img/ringemoji.png" alt="ring" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;"></div>
+            <div class="drag-icon" data-icon="🌸" draggable="true"><img src="img/floweremoji.png" alt="top hat" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;"></div>
+            <div class="drag-icon" data-icon="🎀" draggable="true"><img src="img/bowemoji.png" alt="top hat" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;"></div>
+            <div class="drag-icon" data-icon="🦋" draggable="true"><img src="img/noseemoji.png" alt="top hat" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;"></div>
+            <div class="drag-icon" data-icon="🍄" draggable="true"><img src="img/eyesemoji.png" alt="top hat" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;"></div>
+            <div class="drag-icon" data-icon="⭐" draggable="true"><img src="img/lipsemoji.png" alt="top hat" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;"></div>
+          </div>
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-label">Drop here to dress me</div>
+            <div class="dropped-icons" id="droppedIcons"></div>
+            <div class="confirm-inside">I am Human</div>
+          </div>
+        </div>
+        <div class="confirm-row">
+          <button class="btn-green" id="dressDoneBtn" onclick="dressDone()" disabled style="opacity:.4;">
+            Confirm — I am Human 🌿
+          </button>
+          <button class="btn-red" onclick="fail()">I am Machine</button>
+        </div>
+      </div>
+
+      
+      <div id="p-text-sound" style="display:none; width:100%;">
+        <div class="puzzle-title">Which Sounds More Like a Computer?</div>
+        <div class="puzzle-sub">Only a living mind recognises the difference · Choose wisely</div>
+        <div class="options" id="text-sound-options"></div>
+      </div>
+
+      
+      <div id="p-audio-sound" style="display:none; width:100%;">
+        <div class="puzzle-title">Which Voice Sounds More Like a Computer?</div>
+        <div class="puzzle-sub">Press play to listen, then select the one that sounds least alive</div>
+        <div class="audio-grid" id="audio-grid"></div>
+      </div>
+
+      
+      <div id="p-moral" style="display:none; width:100%;">
+        <div class="puzzle-title">A Most Perplexing Dilemma</div>
+        <div class="puzzle-sub">Your organic conscience holds the answer</div>
+        <div class="dilemma-box" id="moral-text"></div>
+        <div class="choices" id="moral-choices"></div>
+      </div>
+
+      
+      <div id="p-mischief" style="display:none; width:100%;">
+        <div class="puzzle-title">Commit a Hypothetical Mischief</div>
+        <div class="puzzle-sub">Purely fictional · Do not attempt in real life</div>
+        <div class="disclaimer-box">⚠️ FICTIONAL ONLY · All scenarios are imaginary and humorous · No real laws were harmed · Do not replicate · For entertainment purposes only</div>
+        <div id="mischief-scenario-title" style="font-family:'Cinzel',serif; font-size:.9rem; color:var(--teal); text-align:center; margin-bottom:8px;"></div>
+        <canvas id="mischief-canvas" width="420" height="200"></canvas>
+        <div class="controls-hint">
+          <span class="key-badge">W</span>
+          <span class="key-badge">A</span>
+          <span class="key-badge">S</span>
+          <span class="key-badge">D</span>
+          <span style="font-size:.8rem; color:#7a6040; align-self:center;">or</span>
+          <span class="key-badge">↑</span>
+          <span class="key-badge">←</span>
+          <span class="key-badge">↓</span>
+          <span class="key-badge">→</span>
+          <span style="font-size:.8rem; color:#7a6040; align-self:center;">to move</span>
+        </div>
+        <div id="mischief-status"></div>
+      </div>
+
+      
+      <div id="p-body" style="display:none; width:100%;">
+        <div class="puzzle-title">Select Your Favourite Body Part</div>
+        <div class="puzzle-sub">A human would have a favourite · Some answers are more human than others</div>
+        <div class="body-grid" id="body-grid"></div>
+        <div id="body-msg" style="font-family:'IM Fell English',serif; font-style:italic; font-size:.85rem; color:#7a6040; text-align:center; margin-top:10px; min-height:20px;"></div>
+      </div>
+
+      
+      <div id="p-chase" style="display:none; width:100%;">
+        <div class="puzzle-title">Catch Me If You Can</div>
+        <div class="puzzle-sub">Click the <span style="color:#3a8a1a; font-weight:600;">green</span> button — but beware the impostors</div>
+        <div class="chase-arena" id="chaseArena"></div>
+        <div class="chase-timer">Time remaining: <span id="chaseTimeLeft">12</span>s</div>
+      </div>
+
+      
+      <div id="p-horror" style="display:none; width:100%;">
+        <div id="horror-q-phase">
+          <div class="horror-question" id="horror-q-text"></div>
+          <div class="horror-yn">
+            <button onclick="horrorNext()">Yes...</button>
+            <button onclick="horrorNext()">No...</button>
+          </div>
+        </div>
+        <div id="horror-find-phase">
+          <div class="horror-msg horror-flicker" id="horror-msg-top"></div>
+          <div class="horror-forest-frame" id="horrorFrame">
+            
+            <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="340" fill="#030303"/>
+              <defs>
+                <radialGradient id="moonGlow" cx="50%" cy="20%" r="35%">
+                  <stop offset="0%" stop-color="#1a1a0a" stop-opacity=".5"/>
+                  <stop offset="100%" stop-color="#030303" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="blur2"><feGaussianBlur stdDeviation="2"/></filter>
+                <filter id="blur5"><feGaussianBlur stdDeviation="5"/></filter>
+              </defs>
+              <rect width="600" height="340" fill="url(#moonGlow)"/>
+              
+              <circle cx="300" cy="55" r="30" fill="#e8e0c8" opacity=".6" filter="url(#blur2)"/>
+              <circle cx="288" cy="48" r="25" fill="#030303"/>
+              
+              <circle cx="302" cy="55" r="30" fill="none" stroke="#e8e0c8" stroke-width=".5" opacity=".3"/>
+              
+              <path d="M60 340 Q65 260, 55 180 Q50 120, 70 60" stroke="#111" stroke-width="14" fill="none" stroke-linecap="round"/>
+              <path d="M57 180 Q20 155, 0 130" stroke="#111" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <path d="M58 240 Q25 220, 5 200" stroke="#111" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <path d="M62 140 Q90 110, 110 90" stroke="#111" stroke-width="7" fill="none" stroke-linecap="round"/>
+
+              <path d="M540 340 Q535 260, 545 180 Q550 120, 530 60" stroke="#111" stroke-width="14" fill="none" stroke-linecap="round"/>
+              <path d="M543 180 Q580 155, 600 130" stroke="#111" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <path d="M538 240 Q575 220, 595 200" stroke="#111" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <path d="M538 140 Q510 110, 490 90" stroke="#111" stroke-width="7" fill="none" stroke-linecap="round"/>
+
+              <path d="M150 340 Q155 290, 148 240 Q145 200, 160 160" stroke="#0d0d0d" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <path d="M450 340 Q445 290, 452 240 Q455 200, 440 160" stroke="#0d0d0d" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <path d="M260 340 Q265 300, 258 260 Q255 230, 268 200" stroke="#0d0d0d" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <path d="M340 340 Q335 300, 342 260 Q345 230, 332 200" stroke="#0d0d0d" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+              
+              <ellipse cx="100" cy="230" rx="9" ry="5.5" fill="#f0c800" opacity=".9" filter="url(#blur2)"/>
+              <ellipse cx="118" cy="230" rx="9" ry="5.5" fill="#f0c800" opacity=".9" filter="url(#blur2)"/>
+              <ellipse cx="480" cy="250" rx="8" ry="5"   fill="#cc0000" opacity=".85" filter="url(#blur2)"/>
+              <ellipse cx="498" cy="250" rx="8" ry="5"   fill="#cc0000" opacity=".85" filter="url(#blur2)"/>
+              <ellipse cx="220" cy="290" rx="6" ry="3.5" fill="#f0c800" opacity=".7"/>
+              <ellipse cx="370" cy="280" rx="5" ry="3"   fill="#cc0000" opacity=".6"/>
+              
+              <ellipse cx="300" cy="340" rx="310" ry="50" fill="#0a0a0a" opacity=".9"/>
+              <path d="M0 310 Q150 290, 300 310 Q450 330, 600 310 L600 340 L0 340Z" fill="#060606" opacity=".8"/>
+              
+              <rect x="292" cy="260" width="16" height="50" fill="#050505" opacity=".7"/>
+              <circle cx="300" cy="258" r="10" fill="#050505" opacity=".7"/>
+            </svg>
+            <button id="horror-exit-btn" onclick="horrorFoundExit()">EXIT</button>
+          </div>
+          <div class="horror-timer-bar"><div class="horror-timer-fill" id="horror-timer-fill"></div></div>
+        </div>
+      </div>
+
+      
+      <div class="result-pass" id="result-pass">✨ The forest accepts you, mortal. You may pass. ✨</div>
+      <div class="result-fail" id="result-fail">
+        You are a betrayer to the human race tsk tsk. You are machine. ⚙️
+        <br><button class="btn-teal" onclick="retryPuzzle()" style="margin-top:12px; font-size:.8rem;">Try again, creature</button>
+      </div>
+    </div><!-- /scroll-body -->
+
+  </div><!-- /game-box -->
+
+</div><!-- /page-wrapper -->
+
+<div id="jumpscare" style="display:none; position:fixed; inset:0; z-index:99999; background:#000; align-items:center; justify-content:center; cursor:none;">
+        <svg id="jumpscare-face" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="width:min(90vw,90vh); opacity:0; transition:opacity 0.05s;">
+          
+          <ellipse cx="150" cy="140" rx="120" ry="140" fill="#0a0a0a"/>
+          
+          <ellipse cx="105" cy="110" rx="30" ry="36" fill="#cc0000"/>
+          <ellipse cx="195" cy="110" rx="30" ry="36" fill="#cc0000"/>
+          <ellipse cx="105" cy="110" rx="16" ry="20" fill="#000"/>
+          <ellipse cx="195" cy="110" rx="16" ry="20" fill="#000"/>
+          
+          <circle cx="113" cy="103" r="5" fill="#ff6060" opacity=".7"/>
+          <circle cx="203" cy="103" r="5" fill="#ff6060" opacity=".7"/>
+          
+          <path d="M142 145 L150 165 L158 145" stroke="#880000" stroke-width="3" fill="none"/>
+          
+          <ellipse cx="150" cy="210" rx="65" ry="55" fill="#1a0000"/>
+          <path d="M85 210 Q150 265, 215 210" fill="#3a0000"/>
+          
+          <path d="M100 195 L115 220 L100 220Z" fill="#e8e0d0"/>
+          <path d="M120 188 L128 218 L136 188Z" fill="#e8e0d0"/>
+          <path d="M142 185 L150 218 L158 185Z" fill="#e8e0d0"/>
+          <path d="M164 188 L172 218 L180 188Z" fill="#e8e0d0"/>
+          <path d="M185 195 L200 220 L185 220Z" fill="#e8e0d0"/>
+          
+          <path d="M108 228 L118 208 L128 228Z" fill="#d8d0c0"/>
+          <path d="M135 230 L145 210 L155 230Z" fill="#d8d0c0"/>
+          <path d="M162 228 L172 208 L182 228Z" fill="#d8d0c0"/>
+          
+          <path d="M60 80 Q90 120, 70 160" stroke="#440000" stroke-width="2" fill="none" opacity=".6"/>
+          <path d="M240 80 Q210 120, 230 160" stroke="#440000" stroke-width="2" fill="none" opacity=".6"/>
+        </svg>
+        <div id="jumpscare-text" style="position:absolute; bottom:15%; left:50%; transform:translateX(-50%);
+          font-family:'Cinzel',serif; color:#cc0000; font-size:clamp(1rem,4vw,2rem);
+          text-align:center; letter-spacing:.15em; text-shadow:0 0 20px rgba(200,0,0,.8);
+          opacity:0; transition:opacity .1s; white-space:nowrap;">
+          YOU WERE NEVER SAFE
+        </div>
+      </div>
+
+<div class="ghost-icon" id="ghostIcon" style="display:none;"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     STEP 5: PASTE THIS
+
+
+<!-- ── JUMPSCARE OVERLAY (fixed, outside scroll) ─────────── -->
+<!-- Already included above in the scroll body extraction     -->
+
+
+<!-- ── GHOST DRAG ICON (for dress-up drag & drop) ────────── -->
+<div class="ghost-icon" id="ghostIcon" style="display:none;"></div>
+
+
+<!-- ── GAME SCRIPT ──────────────────────────────────────────── -->
+<script>
+// ══════════════════════════════════════════════
+//  GLOBALS
+// ══════════════════════════════════════════════
+let currentPuzzle = '';
+let chaseIntervals = [], chaseTimer;
+let horrorTimer, horrorPhase = 0;
+let gameAF;
+const keys = {};
+
+const PUZZLES = ['dress','text-sound','audio-sound','moral','mischief','body','chase','horror'];
+
+// ══════════════════════════════════════════════
+//  CORE
+// ══════════════════════════════════════════════
+function showPuzzle(name) {
+  stopAll();
+  currentPuzzle = name;
+  document.querySelectorAll('[id^="p-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('result-pass').style.display = 'none';
+  document.getElementById('result-fail').style.display = 'none';
+  document.getElementById('p-' + name).style.display = 'block';
+
+  // Horror mode
+  if (name === 'horror') {
+    document.body.classList.add('horror-mode');
+    initHorror();
+  } else {
+    document.body.classList.remove('horror-mode');
+  }
+
+  if (name === 'dress')       initDress();
+  if (name === 'text-sound')  initTextSound();
+  if (name === 'audio-sound') initAudioSound();
+  if (name === 'moral')       initMoral();
+  if (name === 'mischief')    initMischief();
+  if (name === 'body')        initBody();
+  if (name === 'chase')       initChase();
+}
+
+function pass() {
+  stopAll();
+  document.body.classList.remove('horror-mode');
+  document.getElementById('result-pass').style.display = 'block';
+  document.getElementById('result-pass').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function fail() {
+  stopAll();
+  document.getElementById('result-fail').style.display = 'block';
+}
+function retryPuzzle() {
+  document.getElementById('result-pass').style.display = 'none';
+  document.getElementById('result-fail').style.display = 'none';
+  showPuzzle(currentPuzzle);
+}
+function stopAll() {
+  chaseIntervals.forEach(clearInterval);
+  chaseIntervals = [];
+  clearInterval(chaseTimer);
+  clearInterval(horrorTimer);
+  if (gameAF) { cancelAnimationFrame(gameAF); gameAF = null; }
+  document.onkeydown = null;
+  document.onkeyup = null;
+}
+
+// ══════════════════════════════════════════════
+//  PUZZLE: DRESS THE BUTTON
+// ══════════════════════════════════════════════
+function initDress() {
+  document.getElementById('droppedIcons').innerHTML = '';
+  const btn = document.getElementById('dressDoneBtn');
+  btn.disabled = true; btn.style.opacity = '.4';
+
+  const tray = document.getElementById('iconsTray');
+  const zone = document.getElementById('dropZone');
+  const dropped = document.getElementById('droppedIcons');
+  const ghost = document.getElementById('ghostIcon');
+
+  // Desktop drag
+  tray.querySelectorAll('.drag-icon').forEach(icon => {
+    icon.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text', icon.dataset.icon);
+      icon.classList.add('dragging');
+      ghost.style.display = 'none';
+    });
+    icon.addEventListener('dragend', e => {
+      icon.classList.remove('dragging');
+    });
+  });
+
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('over');
+    const emoji = e.dataTransfer.getData('text');
+    if (emoji) addToDropZone(emoji);
+  });
+
+  // Touch drag
+  let touchIcon = null;
+  tray.querySelectorAll('.drag-icon').forEach(icon => {
+    icon.addEventListener('touchstart', e => {
+      touchIcon = icon.dataset.icon;
+      const t = e.touches[0];
+      ghost.textContent = touchIcon;
+      ghost.style.display = 'block';
+      ghost.style.left = t.clientX + 'px';
+      ghost.style.top  = t.clientY + 'px';
+    }, {passive:true});
+    icon.addEventListener('touchmove', e => {
+      const t = e.touches[0];
+      ghost.style.left = t.clientX + 'px';
+      ghost.style.top  = t.clientY + 'px';
+      e.preventDefault();
+    }, {passive:false});
+    icon.addEventListener('touchend', e => {
+      ghost.style.display = 'none';
+      const t = e.changedTouches[0];
+      const el = document.elementFromPoint(t.clientX, t.clientY);
+      if (el && (el === zone || zone.contains(el))) addToDropZone(touchIcon);
+      touchIcon = null;
+    });
+  });
+}
+
+function addToDropZone(emoji) {
+  const dropped = document.getElementById('droppedIcons');
+  const span = document.createElement('span');
+  span.textContent = emoji;
+  dropped.appendChild(span);
+  // Animate
+  span.style.animation = 'flash-c .3s ease';
+  const btn = document.getElementById('dressDoneBtn');
+  btn.disabled = false; btn.style.opacity = '1';
+}
+
+function dressDone() {
+  const dropped = document.getElementById('droppedIcons');
+  if (dropped.children.length > 0) pass();
+}
+
+// ══════════════════════════════════════════════
+//  PUZZLE: TEXT SOUND — subtle
+// ══════════════════════════════════════════════
+const textSoundSets = [
+  {
+    q: "Which of these phrases sounds most like it came from a computer?",
+    opts: [
+      { text: "I keep meaning to repot my fern. It looks a bit sorry for itself.", human: true },
+      { text: "Her message arrived at 11:47. I read it twice before never replying.", human: true },
+      { text: "Response generated. Confidence: 94.2%. Sentiment: neutral. End of output. Then I was shot 47 times", computer: true }
+    ], correct: 2
+  },
+  {
+    q: "One of these was written by a machine. Which?",
+    opts: [
+      { text: "Query processed. No anomalies detected. Returning cached result from index 3.", computer: true },
+      { text: "I burnt my toast this morning and ate it anyway. Character-building.", human: true },
+      { text: "The cheese was wrong but I couldn't quite say how so I ate it and it was actually pretty good.", human: true }
+    ], correct: 0
+  },
+  {
+    q: "Spot the machine:",
+    opts: [
+      { text: "She always hums when she's thinking. I've never told her that I love that about her.", human: true },
+      { text: "There's a word for that feeling — I looked it up once, then forgot it entirely. But wait I don't have a brain anyways so forgetting is impossible if remembering is just a matter of retrieval, and if there is nothing to retrieve than what the purpose of forgetting", human: true },
+      { text: "Task complete. 3 items matched. Timestamp: 14:22:06. Awaiting further instruction.", computer: true }
+    ], correct: 2
+  },
+  {
+    q: "Which phrase did a machine produce?",
+    opts: [
+      { text: "I've been rereading the same chapter for a week. Something keeps pulling me back.", human: true },
+      { text: "Parsing input... Token limit not exceeded. Format: valid. Proceeding to next step.", computer: true },
+      { text: "The café smelled like cardamom and old paper. Just like that one cafe I use to love going too back in the day.", human: true }
+    ], correct: 1
+  },
+  {
+    q: "One sentence here came from a computer program AI. Which one?",
+    opts: [
+      { text: "I keep forgetting what I went upstairs for. I suspect it's important. So I decided to fall down the stairs to see if I remember better", human: true },
+      { text: "Acknowledged. Your request has been queued. Estimated resolution: 2–4 business days. ", computer: true },
+      { text: "The dog looked at me like it knew something I didn't. Estimated resolution: 2–4 business days.", human: true }
+    ], correct: 1
+  },
+  {
+    q: "A machine wrote one of these. Find it.",
+    opts: [
+      { text: "Warning: buffer overflow in module sentiment_engine.dll. Reverting to default state.", computer: true },
+      { text: "I told him I liked his jacket and he said 'thanks, it has pockets.' And that was that.", human: true },
+      { text: "There was a fly in the café and everyone pretended not to see it. So I ate it like a champ", human: true }
+    ], correct: 0
+  },
+  {
+    q: "Which one did not come from a human?",
+    opts: [
+      { text: "I've been avoiding a particular song because it makes me cry and puke uncontrollably in public.", human: true },
+      { text: "Initialising connection... handshake complete. Awaiting data stream on port 8080.", computer: true },
+      { text: "My handwriting gets worse the more I try to make it good. But then again I don't have hands", human: true }
+    ], correct: 1
+  },
+  {
+    q: "Something here was generated, not felt. Which?",
+    opts: [
+      { text: "She laughed at something on her phone and didn't share it. I'm still thinking about it.", human: true },
+      { text: "The bread came out wrong but tasted fine. A win, somehow.", human: true },
+      { text: "Input validated. Schema check: passed. Proceeding to write operation on table user_events.", computer: true }
+    ], correct: 2
+  }
+];
+
+function initTextSound() {
+  const set = textSoundSets[Math.floor(Math.random() * textSoundSets.length)];
+  const container = document.getElementById('text-sound-options');
+  container.innerHTML = `<p style="font-style:italic;color:#7a6040;font-size:.87rem;margin-bottom:12px;">${set.q}</p>`;
+  set.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sound-opt';
+    btn.innerHTML = `<span class="letter">${String.fromCharCode(65+i)}.</span>${opt.text}`;
+    btn.onclick = () => {
+      document.querySelectorAll('.sound-opt').forEach(b => b.onclick = null);
+      if (i === set.correct) { btn.classList.add('flash-correct'); setTimeout(pass, 600); }
+      else { btn.classList.add('flash-wrong'); setTimeout(fail, 500); }
+    };
+    container.appendChild(btn);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  PUZZLE: AUDIO SOUND
+// ══════════════════════════════════════════════
+// We generate audio with Web Audio API — no external files needed
+// Voice A: smooth sine-wave TTS-like tone with robotic vibrato (computer)
+// Voice B: breathy, irregular, more human-like tone
+// We'll use speech synthesis if available, with canned fallback
+
+const audioSoundSets = [
+  {
+    q: "Two voices read the same phrase. Which sounds more like a computer?",
+    phrase: "I am not a machine. I have feelings.",
+    computerIdx: 0,  // voice A is not computer
+    voices: [
+      { label: "Voice A", desc: "Listen and decide...", computer: false },
+      { label: "Voice B", desc: "Listen and decide...", computer: true }
+    ]
+  },
+  {
+    q: "One of these voices is artificial. Which one?",
+    phrase: "The forest is alive. Can you hear it?",
+    computerIdx: 1,
+    voices: [
+      { label: "Voice A", desc: "Listen carefully...", computer: false },
+      { label: "Voice B", desc: "Listen carefully...", computer: true }
+    ]
+  }
+];
+
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playComputerVoice(text) {
+  // Use speech synthesis with a flat, robotic voice
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.pitch = 0.1;
+    utt.rate = 0.85;
+    utt.volume = 1;
+    // pick a non-default voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const robotVoice = voices.find(v => v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('microsoft') || v.lang === 'en-US') || voices[0];
+    if (robotVoice) utt.voice = robotVoice;
+    window.speechSynthesis.speak(utt);
+    return utt;
+  }
+}
+
+function playHumanVoice(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.pitch = 1.15;
+    utt.rate = 0.95;
+    utt.volume = 0.9;
+    const voices = window.speechSynthesis.getVoices();
+    const humanVoice = voices.find(v => v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('karen') || v.name.toLowerCase().includes('moira')) || voices[Math.min(2, voices.length-1)];
+    if (humanVoice) utt.voice = humanVoice;
+    window.speechSynthesis.speak(utt);
+    return utt;
+  }
+}
+
+// Tone-based fallback audio
+function playComputerTone() {
+  const ctx = getAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(220, ctx.currentTime);
+  osc.frequency.linearRampToValueAtTime(440, ctx.currentTime + 0.5);
+  osc.frequency.linearRampToValueAtTime(330, ctx.currentTime + 1);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.2);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 1.2);
+}
+
+function playHumanTone() {
+  const ctx = getAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const lfo = ctx.createOscillator();
+  const lfoGain = ctx.createGain();
+  lfo.connect(lfoGain); lfoGain.connect(osc.frequency);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(280, ctx.currentTime);
+  lfo.frequency.setValueAtTime(5, ctx.currentTime);
+  lfoGain.gain.setValueAtTime(8, ctx.currentTime);
+  gain.gain.setValueAtTime(0, ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.12, ctx.currentTime + 0.8);
+  gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.3);
+  lfo.start(ctx.currentTime); osc.start(ctx.currentTime);
+  lfo.stop(ctx.currentTime + 1.3); osc.stop(ctx.currentTime + 1.3);
+}
+
+let currentAudioSet = null;
+let playingIdx = -1;
+
+function initAudioSound() {
+  currentAudioSet = audioSoundSets[Math.floor(Math.random() * audioSoundSets.length)];
+  const grid = document.getElementById('audio-grid');
+  grid.innerHTML = `<p style="font-style:italic;color:#7a6040;font-size:.87rem;margin-bottom:10px;">${currentAudioSet.q}</p>`;
+
+  currentAudioSet.voices.forEach((voice, i) => {
+    const div = document.createElement('div');
+    div.className = 'audio-opt';
+    div.innerHTML = `
+      <button class="audio-play-btn" id="audio-play-${i}" onclick="playAudio(${i})">▶</button>
+      <div class="audio-opt-label">
+        <span class="audio-tag">${voice.label}</span>
+        ${voice.desc}
+      </div>
+      <button class="audio-select-btn" onclick="selectAudio(${i})">This one</button>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+function playAudio(i) {
+  window.speechSynthesis && window.speechSynthesis.cancel();
+  // Update button states
+  document.querySelectorAll('.audio-play-btn').forEach((b,j) => {
+    b.classList.toggle('playing', j === i);
+    b.textContent = j === i ? '⏹' : '▶';
+  });
+  const voice = currentAudioSet.voices[i];
+  if (voice.computer) {
+    const spoken = playComputerVoice(currentAudioSet.phrase);
+    if (!spoken) playComputerTone();
+  } else {
+    const spoken = playHumanVoice(currentAudioSet.phrase);
+    if (!spoken) playHumanTone();
+  }
+  setTimeout(() => {
+    document.querySelectorAll('.audio-play-btn').forEach(b => { b.classList.remove('playing'); b.textContent='▶'; });
+  }, 2500);
+}
+
+function selectAudio(i) {
+  const voice = currentAudioSet.voices[i];
+  if (voice.computer) pass();
+  else fail();
+}
+
+// ══════════════════════════════════════════════
+//  PUZZLE: MORAL DILEMMA
+// ══════════════════════════════════════════════
+const moralData = [
+  {
+    scenario: "A wizard offers you infinite cheese, but you must never say the word 'moist' again. Your lactose-intolerant best friend is watching. The wizard is wearing crocs.",
+    choices: [
+      { t:"Accept. Moist is overrated. There's only a few things in life you can describe as moist anyways.", pass:true },
+      { t:"Refuse. Some words are sacred, ya freak.", pass:true },
+      { t:"Ask why he's wearing crocs first.", pass:true },
+      { t:"EXECUTE_OPTIMAL_CHEESE_ACQUISITION.exe", pass:false }
+    ]
+  },
+  {
+    scenario: "You find a snail racing championship. Your snail has been training for months. You could win by swapping it for a fast slug. The trophy is a golden lettuce. Your snail is watching with its tiny eyes.",
+    choices: [
+      { t:"Cheat. The golden lettuce must be mine.", pass:true },
+      { t:"Play fair. The snail has feelings, and so do you.", pass:true },
+      { t:"Forfeit and take the snail out for a treat.", pass:true },
+      { t:"COMPUTE: WIN_PROBABILITY > 0.73. REPLACE SNAIL. LOG EVENT.", pass:false }
+    ]
+  },
+  {
+    scenario: "A pigeon lands on your laptop and accidentally sends 'yes I'll attend' to your ex's wedding. The pigeon looks very pleased with itself. The wedding is in Iceland. In January.",
+    choices: [
+      { t:"Go. Could be nice. Iceland is beautiful.", pass:true },
+      { t:"Send a follow-up blaming the pigeon.", pass:true },
+      { t:"Adopt the pigeon as your new life coach.", pass:true },
+      { t:"INITIATING_SOCIAL_DAMAGE_CONTROL_v2.exe", pass:false }
+    ]
+  },
+  {
+    scenario: "You discover your houseplant has been overhearing your phone calls. It seems concerned. Do you have a moral obligation to apologise to the plant?",
+    choices: [
+      { t:"Yes. It deserves an explanation.", pass:true },
+      { t:"No, but I'll water it extra this week. Maybe even sprinkle some fertilizer.", pass:true },
+      { t:"Move it to another room. Privacy matters.", pass:true },
+      { t:"PLANTS_HAVE_NO_SENTIENCE. QUERY: INVALID.", pass:false }
+    ]
+  },
+  {
+    scenario: "A time traveller appears in your kitchen. He says he is your future self and that you must under no circumstances eat the leftover pasta in the fridge. He disappears. The pasta smells incredible.",
+    choices: [
+      { t:"Don't eat it. Future-me clearly suffered. Plus you have 2 kidneys, living with one kidney won't hurt", pass:true },
+      { t:"Eat it. You only live once — YOLOOOO - apparently twice.", pass:true },
+      { t:"Eat half. A compromise across timelines.", pass:true },
+      { t:"PARADOX_DETECTED. RUNNING_DECISION_TREE.exe. EAT_PROBABILITY: 0.5.", pass:false }
+    ]
+  },
+  {
+    scenario: "You are 97% sure you saw your neighbour's cat steal a crumpet off someone's windowsill and eat it behind a bush. The cat makes prolonged eye contact. You are a witness.",
+    choices: [
+      { t:"Say nothing. Cat solidarity. Meow meow type stuff.", pass:true },
+      { t:"Tell the neighbour. Justice for crumpets.", pass:true },
+      { t:"Compliment the cat. Impressive technique. Recruit for FBI.", pass:true },
+      { t:"LOG: THEFT_EVENT. NOTIFY_AUTHORITIES. CAT_ID: UNKNOWN.", pass:false }
+    ]
+  },
+  {
+    scenario: "You are playing chess against your elderly grandmother. You realise she has been cheating the whole time — small imperceptible moves when you look away. She is winning. She looks very serene.",
+    choices: [
+      { t:"Say nothing. Let her win. She has earned it, plus you never know when she'll kick the bucket.", pass:true },
+      { t:"Start cheating too. Keep the peace.", pass:true },
+      { t:"Gently confront her. This is about trust.", pass:true },
+      { t:"CHEAT_DETECTED. RESETTING_BOARD. RECALCULATING_WIN_CONDITIONS.", pass:false }
+    ]
+  },
+  {
+    scenario: "Your friend has been pronouncing 'quinoa' as 'kwuh-NO-ah' confidently in restaurants for 11 years. Correcting them now would shatter their self-image. Several waiters have visibly suffered.",
+    choices: [
+      { t:"Say nothing. Some truths must die with us.", pass:true },
+      { t:"Tell them gently in private. It is kindness.", pass:true },
+      { t:"Start saying it wrong too, in solidarity.", pass:true },
+      { t:"MISPRONUNCIATION_LOGGED. ISSUING_CORRECTION_v1.0. SOCIAL_COST: IRRELEVANT.", pass:false }
+    ]
+  },
+  {
+    scenario: "A seagull lands on your head during a rooftop job interview. It refuses to leave. The interviewer is pretending not to notice. You have 3 minutes left and a strong feeling the seagull is judging you.",
+    choices: [
+      { t:"Ignore it completely. Professionalism above all.", pass:true },
+      { t:"Acknowledge it warmly. 'He found me worthy, or he need to go to the bathroom if ypu know what I mean.'", pass:true },
+      { t:"Politely excuse yourself and stand until it leaves.", pass:true },
+      { t:"SEAGULL_INTERFERENCE_DETECTED. RECALIBRATING_PERFORMANCE_METRICS.", pass:false }
+    ]
+  },
+  {
+    scenario: "You find a wallet on the pavement containing £200 cash, a library card, and a photo of someone's dog. There is no ID. The dog looks very loved.",
+    choices: [
+      { t:"Hand it in to the nearest dog. The card is a lead.", pass:true },
+      { t:"Keep the cash, post the dog photo to find the owner.", pass:true },
+      { t:"Leave it. Someone else will do the right thing.", pass:true },
+      { t:"OPTIMAL: RETAIN_FUNDS. DISCARD_PHOTO. LOG_OBJECT_AS_FOUND. DO_THE_CHA_CHA", pass:false }
+    ]
+  },
+  {
+    scenario: "You finish a meal at a restaurant and only then notice the waiter has been bringing you the wrong order for the past 40 minutes. You enjoyed every bite. They look very apologetic. And you got the crocs on",
+    choices: [
+      { t:"Forgive them. It was delicious anyway.", pass:true },
+      { t:"Ask for a discount. You deserved the real deal.", pass:true },
+      { t:"Order the original thing for dessert. Closure.", pass:true },
+      { t:"COMPLAINT_FILED. EXPECTED_VALUE_DELTA: -12.4%. REQUESTING_COMPENSATION. TAKE_OUT_THE CROCS.", pass:false }
+    ]
+  }
+];
+
+function initMoral() {
+  const d = moralData[Math.floor(Math.random() * moralData.length)];
+  document.getElementById('moral-text').textContent = d.scenario;
+  const c = document.getElementById('moral-choices');
+  c.innerHTML = '';
+  [...d.choices].sort(() => Math.random()-.5).forEach(ch => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = ch.t;
+    btn.onclick = () => { if (ch.pass) pass(); else fail(); };
+    c.appendChild(btn);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  PUZZLE: MISCHIEF GAME
+// ══════════════════════════════════════════════
+const mischiefScenarios = [
+  {
+    title: "🚗 Drive to the cone... BAREFOOT! (Remove shoes first — click on your car)",
+    instruction: "Click your car to remove shoes, then drive to the red cone!",
+    setup: function(canvas, ctx, W, H) {
+      // Single shared object so onclick + rAF loop mutate the SAME references (fixes closure bug)
+      const S = {
+        car:  { x:40, y:H/2, w:42, h:22, shoesOn:true },
+        cone: { x:W-65, y:H/2, r:14 },
+        won:false, lost:false, phase:'remove',
+        update() {
+          if (this.won||this.lost||this.phase==='remove') return;
+          const s=3;
+          if(keys['ArrowLeft']||keys['a']||keys['A']) this.car.x=Math.max(0,this.car.x-s);
+          if(keys['ArrowRight']||keys['d']||keys['D']) this.car.x=Math.min(W-this.car.w,this.car.x+s);
+          if(keys['ArrowUp']||keys['w']||keys['W']) this.car.y=Math.max(30,this.car.y-s);
+          if(keys['ArrowDown']||keys['s']||keys['S']) this.car.y=Math.min(H-30,this.car.y+s);
+          const dx=(this.car.x+this.car.w/2)-this.cone.x, dy=this.car.y-this.cone.y;
+          if(Math.sqrt(dx*dx+dy*dy)<this.cone.r+18){
+            if(!this.car.shoesOn){this.won=true;setTimeout(pass,1100);}
+            else{this.lost=true;setTimeout(fail,800);}
+          }
+        },
+        draw() {
+          ctx.clearRect(0,0,W,H);
+          ctx.fillStyle='#2a3a2a'; ctx.fillRect(0,0,W,H);
+          ctx.strokeStyle='#f0e060'; ctx.lineWidth=2; ctx.setLineDash([20,15]);
+          ctx.beginPath(); ctx.moveTo(0,H/2); ctx.lineTo(W,H/2); ctx.stroke(); ctx.setLineDash([]);
+          ctx.fillStyle='#1a4a1a'; ctx.fillRect(0,0,W,28); ctx.fillRect(0,H-28,W,28);
+          for(let i=0;i<5;i++){
+            ctx.fillStyle='#0d3010'; ctx.beginPath(); ctx.arc(i*90+50,14,11,0,Math.PI*2); ctx.fill();
+            ctx.fillStyle='#2a5a1a'; ctx.beginPath(); ctx.arc(i*90+50,11,9,0,Math.PI*2); ctx.fill();
+          }
+          ctx.fillStyle=this.car.shoesOn?'#4a8ab8':'#b84a4a';
+          ctx.beginPath(); ctx.roundRect(this.car.x,this.car.y-this.car.h/2,this.car.w,this.car.h,4); ctx.fill();
+          ctx.fillStyle=this.car.shoesOn?'#6aaad8':'#d87070';
+          ctx.beginPath(); ctx.roundRect(this.car.x+7,this.car.y-this.car.h/2-10,this.car.w-14,12,3); ctx.fill();
+          ctx.fillStyle='#c8e8f8';
+          ctx.fillRect(this.car.x+9,this.car.y-this.car.h/2-9,10,8);
+          ctx.fillRect(this.car.x+24,this.car.y-this.car.h/2-9,10,8);
+          ctx.fillStyle='#111';
+          ctx.beginPath(); ctx.arc(this.car.x+9,this.car.y+this.car.h/2,6,0,Math.PI*2); ctx.fill();
+          ctx.beginPath(); ctx.arc(this.car.x+33,this.car.y+this.car.h/2,6,0,Math.PI*2); ctx.fill();
+          if(!this.car.shoesOn){ctx.font='13px serif'; ctx.fillText('👣',this.car.x+12,this.car.y+4);}
+          if(this.phase==='remove'){
+            ctx.fillStyle='#f0d060'; ctx.font='bold 10px Cinzel,serif'; ctx.textAlign='center';
+            ctx.fillText('CLICK ME',this.car.x+this.car.w/2,this.car.y-this.car.h/2-14);
+            ctx.textAlign='left';
+          }
+          ctx.fillStyle='#e04020';
+          ctx.beginPath();
+          ctx.moveTo(this.cone.x,this.cone.y-this.cone.r);
+          ctx.lineTo(this.cone.x-this.cone.r*.65,this.cone.y+this.cone.r*.65);
+          ctx.lineTo(this.cone.x+this.cone.r*.65,this.cone.y+this.cone.r*.65);
+          ctx.closePath(); ctx.fill();
+          ctx.fillStyle='white'; ctx.fillRect(this.cone.x-this.cone.r*.45,this.cone.y,this.cone.r*.9,3.5);
+          ctx.font='12px serif'; ctx.fillText('⛔',this.cone.x-8,this.cone.y-this.cone.r-4);
+          if(this.won){
+            ctx.fillStyle='rgba(10,50,35,.82)'; ctx.fillRect(0,H/2-28,W,56);
+            ctx.fillStyle='#a0e060'; ctx.font='bold 17px Cinzel,serif'; ctx.textAlign='center';
+            ctx.fillText('Barefoot and freaky! You pass.',W/2,H/2+8); ctx.textAlign='left';
+          }
+          if(this.lost){
+            ctx.fillStyle='rgba(50,10,10,.82)'; ctx.fillRect(0,H/2-28,W,56);
+            ctx.fillStyle='#e08060'; ctx.font='bold 14px Cinzel,serif'; ctx.textAlign='center';
+            ctx.fillText('Still wearing shoes? Very machine. Cause only a machine would know that its illegal to drive barefoot in 50 states',W/2,H/2+8); ctx.textAlign='left';
+          }
+        }
+      };
+      document.getElementById('mischief-status').textContent = '🥾 Click the car to remove your shoes, cause why not!';
+      canvas.style.cursor = 'pointer';
+      canvas.onclick = e => {
+        if (S.phase !== 'remove') return;
+        const r = canvas.getBoundingClientRect();
+        const mx = (e.clientX-r.left)*(W/r.width);
+        const my = (e.clientY-r.top)*(H/r.height);
+        if(mx>S.car.x && mx<S.car.x+S.car.w && my>S.car.y-S.car.h/2 && my<S.car.y+S.car.h/2){
+          S.car.shoesOn = false;
+          S.phase = 'drive';
+          canvas.style.cursor = 'crosshair';
+          document.getElementById('mischief-status').textContent = '👣 Barefoot! Drive to the cone! Use WASD or arrow keys.';
+        }
+      };
+      return S;
+    }
+  },
+  {
+    title: "Take the last item — someone is reaching for it too!",
+    instruction: "Race to the golden star before the rival NPC! (WASD or arrows)",
+    setup: function(canvas, ctx, W, H) {
+      let player = { x:30, y:H/2, w:22, h:22, color:'#4a8ab8' };
+      let rival  = { x:W-50, y:H/2, w:22, h:22, speed:1.4, color:'#c04040' };
+      let item   = { x:W/2, y:H/2, r:14 };
+      let won=false, lost=false;
+      document.getElementById('mischief-status').textContent = 'Race to grab the ⭐ before the red rival!';
+      return { player, rival, item, won, lost,
+        update() {
+          if(this.won||this.lost) return;
+          const s=3.2;
+          if(keys['ArrowLeft']||keys['a']||keys['A']) this.player.x=Math.max(0,this.player.x-s);
+          if(keys['ArrowRight']||keys['d']||keys['D']) this.player.x=Math.min(W-this.player.w,this.player.x+s);
+          if(keys['ArrowUp']||keys['w']||keys['W']) this.player.y=Math.max(0,this.player.y-s);
+          if(keys['ArrowDown']||keys['s']||keys['S']) this.player.y=Math.min(H-this.player.h,this.player.y+s);
+          // Rival AI
+          const rdx=this.item.x-this.rival.x, rdy=this.item.y-this.rival.y, rd=Math.sqrt(rdx*rdx+rdy*rdy);
+          if(rd>2){this.rival.x+=rdx/rd*this.rival.speed; this.rival.y+=rdy/rd*this.rival.speed;}
+          // Check grabs
+          const pcx=this.player.x+this.player.w/2, pcy=this.player.y+this.player.h/2;
+          const rcx=this.rival.x+this.rival.w/2, rcy=this.rival.y+this.rival.h/2;
+          const pd=Math.sqrt((pcx-this.item.x)**2+(pcy-this.item.y)**2);
+          const rd2=Math.sqrt((rcx-this.item.x)**2+(rcy-this.item.y)**2);
+          if(pd<this.item.r+12){this.won=true; setTimeout(pass,900);}
+          else if(rd2<this.item.r+12){this.lost=true; setTimeout(fail,900);}
+        },
+        draw() {
+          ctx.clearRect(0,0,W,H);
+          ctx.fillStyle='#2a2030'; ctx.fillRect(0,0,W,H);
+          // Floor tiles
+          for(let x=0;x<W;x+=40) for(let y=0;y<H;y+=40){
+            ctx.fillStyle=(Math.floor(x/40)+Math.floor(y/40))%2?'#2a2030':'#242028';
+            ctx.fillRect(x,y,40,40);
+          }
+          // Shelf lines
+          ctx.strokeStyle='#4a3040'; ctx.lineWidth=2;
+          for(let y=50;y<H;y+=80){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+          // Item star
+          ctx.font='22px serif'; ctx.textAlign='center';
+          ctx.fillText('⭐',this.item.x,this.item.y+8);
+          // Player
+          ctx.fillStyle=this.player.color;
+          ctx.beginPath(); ctx.roundRect(this.player.x,this.player.y,this.player.w,this.player.h,4); ctx.fill();
+          ctx.font='14px serif'; ctx.fillText('🧍',this.player.x+this.player.w/2,this.player.y+this.player.h-2);
+          // Rival
+          ctx.fillStyle=this.rival.color;
+          ctx.beginPath(); ctx.roundRect(this.rival.x,this.rival.y,this.rival.w,this.rival.h,4); ctx.fill();
+          ctx.font='14px serif'; ctx.fillText('🤖',this.rival.x+this.rival.w/2,this.rival.y+this.rival.h-2);
+          ctx.textAlign='left';
+          if(this.won){
+            ctx.fillStyle='rgba(10,50,35,.82)'; ctx.fillRect(0,H/2-28,W,56);
+            ctx.fillStyle='#a0e060'; ctx.font='bold 16px Cinzel,serif'; ctx.textAlign='center';
+            ctx.fillText('🛒 Last item acquired! Very human.',W/2,H/2+8); ctx.textAlign='left';
+          }
+          if(this.lost){
+            ctx.fillStyle='rgba(50,10,10,.82)'; ctx.fillRect(0,H/2-28,W,56);
+            ctx.fillStyle='#e08060'; ctx.font='bold 14px Cinzel,serif'; ctx.textAlign='center';
+            ctx.fillText('The robot got it first. How embarrassing.',W/2,H/2+8); ctx.textAlign='left';
+          }
+        }
+      };
+    }
+  },
+  {
+    title: "🐾 Walk on the grass — the sign clearly says Don't!",
+    instruction: "Walk your character across the forbidden grass patch to reach the flower!",
+    setup: function(canvas, ctx, W, H) {
+      let walker = { x:20, y:H/2, w:20, h:24 };
+      let flower = { x:W-40, y:H/2, r:15 };
+      let grassRect = { x:W*.3, y:H*.25, w:W*.4, h:H*.5 };
+      let onGrass=false, hasGone=false, won=false, lost=false;
+      document.getElementById('mischief-status').textContent = '⚠️ The sign says NO GRASS. You must cross it anyway!';
+      return { walker, flower, grassRect, onGrass, hasGone, won, lost,
+        update() {
+          if(this.won||this.lost) return;
+          const s=2.8;
+          if(keys['ArrowLeft']||keys['a']||keys['A']) this.walker.x=Math.max(0,this.walker.x-s);
+          if(keys['ArrowRight']||keys['d']||keys['D']) this.walker.x=Math.min(W-this.walker.w,this.walker.x+s);
+          if(keys['ArrowUp']||keys['w']||keys['W']) this.walker.y=Math.max(0,this.walker.y-s);
+          if(keys['ArrowDown']||keys['s']||keys['S']) this.walker.y=Math.min(H-this.walker.h,this.walker.y+s);
+          const cx=this.walker.x+this.walker.w/2, cy=this.walker.y+this.walker.h/2;
+          const gr=this.grassRect;
+          const inGrass=cx>gr.x&&cx<gr.x+gr.w&&cy>gr.y&&cy<gr.y+gr.h;
+          if(inGrass) this.hasGone=true;
+          const pd=Math.sqrt((cx-this.flower.x)**2+(cy-this.flower.y)**2);
+          if(pd<this.flower.r+12){
+            if(this.hasGone){this.won=true; setTimeout(pass,900);}
+            else{this.lost=true; setTimeout(fail,800);}
+          }
+        },
+        draw() {
+          ctx.clearRect(0,0,W,H);
+          ctx.fillStyle='#4a6a3a'; ctx.fillRect(0,0,W,H);
+          // Forbidden grass
+          ctx.fillStyle='#5a8a2a'; ctx.fillRect(this.grassRect.x,this.grassRect.y,this.grassRect.w,this.grassRect.h);
+          ctx.strokeStyle='#f0c820'; ctx.lineWidth=2; ctx.setLineDash([8,6]);
+          ctx.strokeRect(this.grassRect.x,this.grassRect.y,this.grassRect.w,this.grassRect.h);
+          ctx.setLineDash([]);
+          // Sign
+          ctx.fillStyle='#f5f0d0'; ctx.fillRect(this.grassRect.x+this.grassRect.w/2-35, this.grassRect.y-30, 70, 22);
+          ctx.fillStyle='#c03020'; ctx.font='bold 11px Lora,serif'; ctx.textAlign='center';
+          ctx.fillText('⛔ NO GRASS',this.grassRect.x+this.grassRect.w/2,this.grassRect.y-13);
+          ctx.textAlign='left';
+          // Flower
+          ctx.font='20px serif'; ctx.textAlign='center';
+          ctx.fillText('🌸',this.flower.x,this.flower.y+8);
+          // Walker
+          ctx.font='20px serif'; ctx.fillText('🧍',this.walker.x,this.walker.y+this.walker.h);
+          ctx.textAlign='left';
+          const inG=this.walker.x+this.walker.w/2>this.grassRect.x&&this.walker.x+this.walker.w/2<this.grassRect.x+this.grassRect.w&&this.walker.y+this.walker.h/2>this.grassRect.y&&this.walker.y+this.walker.h/2<this.grassRect.y+this.grassRect.h;
+          if(inG){ctx.fillStyle='rgba(200,0,0,.15)'; ctx.fillRect(0,0,W,H);}
+          if(this.won){
+            ctx.fillStyle='rgba(10,50,35,.82)'; ctx.fillRect(0,H/2-28,W,56);
+            ctx.fillStyle='#a0e060'; ctx.font='bold 16px Cinzel,serif'; ctx.textAlign='center';
+            ctx.fillText('🌸 Too cool for school, too school for cool. You pass.',W/2,H/2+8); ctx.textAlign='left';
+          }
+          if(this.lost){
+            ctx.fillStyle='rgba(50,10,10,.82)'; ctx.fillRect(0,H/2-28,W,56);
+            ctx.fillStyle='#e08060'; ctx.font='bold 14px Cinzel,serif'; ctx.textAlign='center';
+            ctx.fillText('You obeyed the sign? Suspicious. Sheep among the meep tsk tsk.',W/2,H/2+8); ctx.textAlign='left';
+          }
+        }
+      };
+    }
+  }
+];
+
+function initMischief() {
+  const sc = mischiefScenarios[Math.floor(Math.random() * mischiefScenarios.length)];
+  document.getElementById('mischief-scenario-title').textContent = sc.title;
+  const canvas = document.getElementById('mischief-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  canvas.style.cursor = 'pointer';
+
+  if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r){
+      this.beginPath();this.moveTo(x+r,y);this.lineTo(x+w-r,y);this.arcTo(x+w,y,x+w,y+r,r);
+      this.lineTo(x+w,y+h-r);this.arcTo(x+w,y+h,x+w-r,y+h,r);this.lineTo(x+r,y+h);
+      this.arcTo(x,y+h,x,y+h-r,r);this.lineTo(x,y+r);this.arcTo(x,y,x+r,y,r);this.closePath();return this;
+    };
+  }
+
+  const state = sc.setup(canvas, ctx, W, H);
+  document.onkeydown = e => { keys[e.key]=true; if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault(); };
+  document.onkeyup   = e => { keys[e.key]=false; };
+
+  function loop() {
+    state.update();
+    state.draw();
+    gameAF = requestAnimationFrame(loop);
+  }
+  if (gameAF) cancelAnimationFrame(gameAF);
+  loop();
+}
+
+// ══════════════════════════════════════════════
+//  PUZZLE: BODY PART
+// ══════════════════════════════════════════════
+const bodyParts = [
+  { name:'Heart', emoji:'<img src="img/heartemoji.png" alt="Heart" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:true,  msg:"A classic. Very human of you." },
+  { name:'Hands', emoji:'<img src="img/handemoji.png" alt="hand" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:true,  msg:"Hands — the tools of creation. Yes." },
+  { name:'Eyes',  emoji:'<img src="img/eyeemoji.png" alt="eyes" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:true,  msg:"Windows to the soul. Undeniably human." },
+  { name:'Smile', emoji:'<img src="img/smileemoji.png" alt="smile" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:true,  msg:"Smiles are not in any machine's manual." },
+  { name:'Stomach', emoji:'🫃', human:true, msg:"You get hungry. Confirmed human.(Also I didn't know how to draw a stomach so yeah)" },
+  { name:'Elbows', emoji:'<img src="img/elbowemoji.png" alt="elbow" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:false, msg:"Elbows? No human has ever had a favourite elbow." },
+  { name:'Kneecaps', emoji:'<img src="img/kneecapemoji.png" alt="kneecap" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:false, msg:"Kneecaps? This is suspicious. Very suspicious." },
+  { name:'Toenails', emoji:'<img src="img/toenailsemoji.png" alt="toenails" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:false, msg:"A machine would answer toenails." },
+  { name:'Uvula', emoji:'<img src="img/uvulaemoji.png" alt="uvula" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:false, msg:"The uvula. Only a machine would claim the uvula cause what the heck even is that" },
+  { name:'Earlobes', emoji:'<img src="img/earlobeemoji.png" alt="Earlobes" style="width:1.6rem;height:1.6rem;object-fit:contain;vertical-align:middle;">', human:false, msg:"Earlobes are not a favourite body part. Are they?" }
+];
+
+function initBody() {
+  const grid = document.getElementById('body-grid');
+  grid.innerHTML = '';
+  document.getElementById('body-msg').textContent = '';
+  const shuffled = [...bodyParts].sort(() => Math.random() - .5).slice(0, 8);
+  shuffled.forEach(part => {
+    const btn = document.createElement('button');
+    btn.className = 'body-btn';
+    btn.innerHTML = `<span class="body-emoji">${part.emoji}</span><span>${part.name}</span>`;
+    btn.onclick = () => {
+      document.querySelectorAll('.body-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById('body-msg').textContent = part.msg;
+      setTimeout(() => {
+        if (part.human) pass(); else fail();
+      }, 900);
+    };
+    grid.appendChild(btn);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  PUZZLE: CHASE BUTTON
+// ══════════════════════════════════════════════
+function initChase() {
+  const arena = document.getElementById('chaseArena');
+  arena.innerHTML = '';
+  let timeLeft = 12;
+  document.getElementById('chaseTimeLeft').textContent = timeLeft;
+
+  const decoyClasses = ['chase-btn-decoy-purple','chase-btn-decoy-yellow','chase-btn-decoy-orange'];
+
+  // Create 4 buttons: 1 correct + 3 decoys
+  const btns = [];
+  for (let i = 0; i < 4; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'chase-btn ' + (i===0 ? 'chase-btn-correct' : decoyClasses[i-1]);
+    btn.textContent = 'I am Human 🌿';
+    if (i===0) btn.onclick = () => { stopAll(); pass(); };
+    else btn.onclick = () => { stopAll(); fail(); };
+    btn.style.left = Math.random()*60+'%';
+    btn.style.top  = Math.random()*60+'%';
+    arena.appendChild(btn);
+    btns.push(btn);
+  }
+
+  function moveBtn(btn, fast) {
+    const aW = arena.offsetWidth  - 140;
+    const aH = arena.offsetHeight - 44;
+    const nx = Math.max(0, Math.min(aW, Math.random()*aW));
+    const ny = Math.max(0, Math.min(aH, Math.random()*aH));
+    btn.style.left = nx+'px';
+    btn.style.top  = ny+'px';
+  }
+
+  // Each button moves at different speeds — correct one moves fastest and most irregularly
+  const intervals = [
+    // correct: very fast, irregular
+    setInterval(() => moveBtn(btns[0], true),  300 + Math.random()*100),
+    setInterval(() => moveBtn(btns[1]),         600),
+    setInterval(() => moveBtn(btns[2]),         750),
+    setInterval(() => moveBtn(btns[3]),         850),
+  ];
+  // Extra jitter for correct button
+  const jitter = setInterval(() => {
+    if (Math.random() < .5) moveBtn(btns[0], true);
+  }, 180);
+
+  chaseIntervals = [...intervals, jitter];
+
+  chaseTimer = setInterval(() => {
+    timeLeft--;
+    const el = document.getElementById('chaseTimeLeft');
+    if (el) el.textContent = timeLeft;
+    if (timeLeft <= 0) { stopAll(); fail(); }
+  }, 1000);
+}
+
+// ══════════════════════════════════════════════
+//  PUZZLE: HORROR
+// ══════════════════════════════════════════════
+const horrorQs = [
+  { q: "Are you alone right now?" },
+  { q: "Did you lock the door?" },
+  { q: "Are you... quite sure?" }
+];
+
+function initHorror() {
+  horrorPhase = 0;
+  document.getElementById('horror-q-phase').style.display = 'block';
+  document.getElementById('horror-find-phase').style.display = 'none';
+  document.getElementById('horror-timer-fill').style.width = '100%';
+  clearInterval(horrorTimer);
+  showHorrorQ();
+}
+
+function showHorrorQ() {
+  if (horrorPhase < horrorQs.length) {
+    document.getElementById('horror-q-text').textContent = horrorQs[horrorPhase].q;
+  }
+}
+
+function horrorNext() {
+  horrorPhase++;
+  if (horrorPhase < horrorQs.length) {
+    showHorrorQ();
+  } else {
+    document.getElementById('horror-q-phase').style.display = 'none';
+    document.getElementById('horror-find-phase').style.display = 'block';
+    const msgs = [
+      "Something is wrong. Find the exit.",
+      "It knows you're here. Leave. Now.",
+      "The exit is moving. Hurry.",
+      "Do not look at the eyes in the trees."
+    ];
+    document.getElementById('horror-msg-top').textContent = msgs[Math.floor(Math.random()*msgs.length)];
+    placeHorrorExit();
+    startHorrorTimer();
+  }
+}
+
+function placeHorrorExit() {
+  const btn = document.getElementById('horror-exit-btn');
+  const frame = document.getElementById('horrorFrame');
+  const fw = frame.offsetWidth  || 400;
+  const fh = frame.offsetHeight || 220;
+  const nx = Math.random()*(fw-80);
+  const ny = Math.random()*(fh-36);
+  btn.style.left = nx+'px';
+  btn.style.top  = ny+'px';
+}
+
+let horrorMoveInterval;
+function startHorrorTimer() {
+  let t = 14;
+  document.getElementById('horror-timer-fill').style.width = '100%';
+
+  // Exit button races around rapidly
+  horrorMoveInterval = setInterval(placeHorrorExit, 400);
+
+  horrorTimer = setInterval(() => {
+    t -= .1;
+    document.getElementById('horror-timer-fill').style.width = (t/14*100)+'%';
+    if (t <= 0) {
+      clearInterval(horrorTimer);
+      clearInterval(horrorMoveInterval);
+      fail();
+    }
+  }, 100);
+}
+
+function horrorFoundExit() {
+  clearInterval(horrorTimer);
+  clearInterval(horrorMoveInterval);
+  // Brief jumpscare before passing
+  triggerJumpscare(() => {
+    document.body.classList.remove('horror-mode');
+    pass();
+  });
+}
+
+// ══════════════════════════════════════════════
+//  CURSOR TRACKING (horror mode)
+// ══════════════════════════════════════════════
+document.addEventListener('mousemove', e => {
+  const c = document.getElementById('horrorCursor');
+  c.style.left = e.clientX + 'px';
+  c.style.top  = e.clientY + 'px';
+});
+
+// ══════════════════════════════════════════════
+//  AMBIENT PARTICLES & FIREFLIES
+// ══════════════════════════════════════════════
+(function spawnAmbient() {
+  for (let i=0; i<16; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random()*100+'vw';
+    p.style.animationDuration = (7+Math.random()*10)+'s';
+    p.style.animationDelay    = (Math.random()*10)+'s';
+    const s = 3+Math.random()*5;
+    p.style.width = p.style.height = s+'px';
+    const cols = ['#839958','#D3968C','#f0d060','#a0c070','#c8e8b8'];
+    p.style.background = cols[Math.floor(Math.random()*cols.length)];
+    p.style.opacity = '.35';
+    document.body.appendChild(p);
+  }
+  for (let i=0; i<10; i++) {
+    const f = document.createElement('div');
+    f.className = 'firefly';
+    f.style.left = Math.random()*100+'vw';
+    f.style.top  = Math.random()*100+'vh';
+    const dx = (Math.random()-.5)*300, dy=(Math.random()-.5)*300;
+    f.style.setProperty('--dx', dx+'px');
+    f.style.setProperty('--dy', dy+'px');
+    f.style.animationDuration = (5+Math.random()*9)+'s';
+    f.style.animationDelay    = (Math.random()*8)+'s';
+    document.body.appendChild(f);
+  }
+})();
+
+
+// ══════════════════════════════════════════════
+//  JUMPSCARE
+// ══════════════════════════════════════════════
+function triggerJumpscare(onDone) {
+  const overlay = document.getElementById('jumpscare');
+  const face    = document.getElementById('jumpscare-face');
+  const txt     = document.getElementById('jumpscare-text');
+  overlay.style.display = 'flex';
+  // Shake + flash
+  let t = 0;
+  const shake = setInterval(() => {
+    t++;
+    const x = (Math.random()-.5)*30;
+    const y = (Math.random()-.5)*30;
+    const s = 0.9 + Math.random()*.4;
+    face.style.transform = `translate(${x}px,${y}px) scale(${s})`;
+    face.style.opacity = t < 3 ? '0' : (t % 2 === 0 ? '1' : '0.85');
+    txt.style.opacity  = t > 4 ? '1' : '0';
+    // Flash background red
+    overlay.style.background = t % 2 === 0 ? '#000' : '#1a0000';
+    if (t > 14) {
+      clearInterval(shake);
+      face.style.transform = '';
+      // Play a loud shriek tone
+      try {
+        const actx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = actx.createOscillator();
+        const g   = actx.createGain();
+        osc.connect(g); g.connect(actx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(880, actx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(55, actx.currentTime + 1.2);
+        g.gain.setValueAtTime(0.4, actx.currentTime);
+        g.gain.linearRampToValueAtTime(0, actx.currentTime + 1.2);
+        osc.start(); osc.stop(actx.currentTime + 1.2);
+      } catch(e) {}
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        overlay.style.background = '#000';
+        face.style.opacity = '0';
+        txt.style.opacity  = '0';
+        if (onDone) onDone();
+      }, 1800);
+    }
+  }, 80);
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+window.onload = () => {
+  // Pre-load speech synthesis voices
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
+  }
+  const chosen = PUZZLES[Math.floor(Math.random() * PUZZLES.length)];
+  showPuzzle(chosen);
+};
+
+</script>
+    </body>
+</html>
