@@ -80,7 +80,7 @@ body.horror-mode {
 .game-box {
   position: relative;
   width: min(50vw, 680px);
-  min-width: 300px;
+  min-width: 820px;
   background: transparent;
   padding: 28px 36px 32px;
 }
