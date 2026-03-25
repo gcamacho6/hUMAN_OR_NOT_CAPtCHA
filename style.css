@@ -118,8 +118,10 @@ body.horror-mode {
   font-weight: 400;
 }
 .puzzle-sub {
-  font-family: 'Irish Grover', cursive;
+  font-family: "english-small-caps", cursive;
   font-style: italic;
+  font-weight: 400;
+  font-style: normal;
   color: #7a6040;
   font-size: 0.78rem;
   text-align: center;
@@ -130,7 +132,8 @@ body.horror-mode {
 .btn-green {
   background: linear-gradient(135deg, #6ab84a, #3a8a1a);
   color: #fff; border: none; padding: 11px 26px;
-  border-radius: 28px; font-family: 'Irish Grover', cursive; font-size: 0.92rem; font-weight: 600;
+  border-radius: 28px; font-family: "fairy-tale-jf", cursive; font-size: 0.92rem; font-weight: 400; font-style: normal;
+
   cursor: pointer; box-shadow: 0 4px 14px rgba(58,138,26,0.4);
   transition: transform .15s, box-shadow .15s;
 }
@@ -139,7 +142,7 @@ body.horror-mode {
 .btn-red {
   background: linear-gradient(135deg, #d87868, #a04838);
   color: #fff; border: none; padding: 11px 26px;
-  border-radius: 28px; font-family: 'Irish Grover', cursive; font-size: 0.92rem; font-weight: 600;
+  border-radius: 28px; font-family: "fairy-tale-jf", cursive; font-size: 0.92rem; font-weight: 400; font-style: normal;
   cursor: pointer; transition: transform .15s;
 }
 .btn-red:hover { transform: scale(1.04); }
@@ -162,7 +165,7 @@ body.horror-mode {
 .result-fail {
   display: none; text-align: center; margin-top: 18px;
   padding: 14px 20px; border-radius: 8px;
-  font-family: 'Irish Grover', cursive; font-size: 1rem; line-height: 1.5;
+  font-family: "fairy-tale-jf", cursive; font-size: 0.92rem; font-weight: 400; font-style: normal; font-size: 1rem; line-height: 1.5;
 }
 .result-pass { background: rgba(131,153,88,.25); color: var(--dark); border: 2px solid var(--sage); }
 .result-fail { background: rgba(211,150,140,.25); color: #7a2010; border: 2px solid var(--rose); }
@@ -197,9 +200,14 @@ body.horror-mode {
 }
 .drop-zone.over { background: rgba(131,153,88,.2); border-color: var(--sage); }
 .drop-zone .drop-label {
-  font-family: 'Irish Grover', cursive; font-size: 0.75rem; color: #9a8a60;
+  font-family: 'Irish Grover', cursive; font-size: 20px; color: #9a8a60;
   margin-bottom: 8px; text-align: center;
 }
+
+font-family: "fairy-tale-jf", sans-serif;
+font-weight: 400;
+font-style: normal;
+
 .drop-zone .dropped-icons {
   display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; font-size: 1.6rem;
 }
@@ -219,10 +227,11 @@ body.horror-mode {
 .sound-opt {
   background: rgba(247,244,213,.85); border: 2px solid #c4b080;
   padding: 13px 18px; border-radius: 8px;
-  font-family: 'Irish Grover', cursive; font-size: .88rem; color: var(--dark);
+  font-family: "double-pica", cursive; font-size: 15px; color: var(--dark);font-weight: 400; font-style: normal;
   cursor: pointer; transition: all .2s; display: flex; align-items: flex-start; gap: 10px;
   line-height: 1.5;
 }
+
 .sound-opt:hover { border-color: var(--teal); background: rgba(240,234,208,.95); }
 .sound-opt .letter { font-family: 'Alice', serif; font-weight: 700; color: var(--teal); flex-shrink: 0; }
 .flash-correct { animation: flash-c .5s ease; background: rgba(131,153,88,.3) !important; }
@@ -248,7 +257,7 @@ body.horror-mode {
 }
 .audio-play-btn:hover  { transform: scale(1.1); }
 .audio-play-btn.playing { background: linear-gradient(135deg, var(--sage), #5a7030); }
-.audio-opt-label { font-family: 'Irish Grover', cursive; font-size: .88rem; color: var(--dark); line-height: 1.4; }
+.audio-opt-label { font-family: ' IrishGrover', cursive; font-size: .88rem; color: var(--dark); line-height: 1.4; }
 .audio-opt-label .audio-tag { display: block; font-family: 'Alice', serif; font-size: .75rem; color: var(--teal); margin-bottom: 2px; }
 .audio-select-btn {
   margin-left: auto; padding: 8px 16px; border-radius: 20px;
@@ -262,14 +271,14 @@ body.horror-mode {
 #p-moral .dilemma-box {
   background: rgba(16,86,102,.1); border-left: 4px solid var(--teal);
   padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px;
-  font-family: 'Irish Grover', cursive; font-style: italic;
-  color: var(--dark); font-size: .88rem; line-height: 1.6;
+  font-family: 'double-pica', cursive; font-style: normal;
+  color: var(--dark); font-size: .90rem; line-height: 1.6;
 }
 #p-moral .choices { display: flex; flex-direction: column; gap: 9px; }
 .choice-btn {
   background: rgba(247,244,213,.85); border: 2px solid #c4b080;
   padding: 11px 16px; border-radius: 8px;
-  font-family: 'Irish Grover', cursive; font-size: .88rem; color: var(--dark);
+  font-family: 'double-pica', cursive; font-size: .90rem; color: var(--dark); font-style: normal;
   cursor: pointer; transition: all .2s; text-align: left;
 }
 .choice-btn:hover { border-color: var(--rose); background: rgba(245,232,228,.9); }
@@ -279,7 +288,7 @@ body.horror-mode {
 .disclaimer-box {
   background: rgba(211,150,140,.15); border: 1px solid var(--rose);
   border-radius: 8px; padding: 7px 14px; margin-bottom: 12px;
-  font-family: 'Irish Grover', cursive; font-size: .72rem; color: #7a3020;
+  font-family: 'double-pica', cursive; font-size: .82rem; color: #7a3020; font-style: normal;
   line-height: 1.4; text-align: left;
 }
 #mischief-canvas {
@@ -292,11 +301,11 @@ body.horror-mode {
 }
 .key-badge {
   background: #2a1a08; color: #e0c880; border: 1.5px solid #a08040;
-  border-radius: 6px; padding: 3px 10px; font-family: monospace; font-size: .85rem;
+  border-radius: 6px; padding: 3px 10px; font-family: monospace; font-size: .90rem;
   box-shadow: 0 2px 4px rgba(0,0,0,.4);
 }
 #mischief-status {
-  font-family: 'Irish Grover', cursive; font-size: .88rem;
+  font-family: 'double-pica', cursive; font-size: .95rem; font-style: normal; font-weight: 400;
   color: var(--teal); margin-top: 6px; min-height: 24px;
 }
 
@@ -308,7 +317,7 @@ body.horror-mode {
 .body-btn {
   background: rgba(247,244,213,.85); border: 2px solid #c4b080;
   border-radius: 10px; padding: 14px 8px;
-  font-family: 'Irish Grover', cursive; font-size: .85rem; color: var(--dark);
+  font-family: 'double-pica', cursive; font-size: .85rem; color: var(--dark); font-style: normal; font-weight: 400;
   cursor: pointer; transition: all .2s; text-align: center; line-height: 1.3;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
@@ -325,7 +334,7 @@ body.horror-mode {
 }
 .chase-btn {
   position: absolute; border: none; padding: 10px 20px; border-radius: 24px;
-  font-family: 'Irish Grover', cursive; font-size: .88rem; font-weight: 600;
+  font-family: 'double-pica', cursive; font-size: .88rem; font-weight: 600; font-style: normal;
   cursor: pointer; transition: none; white-space: nowrap;
   box-shadow: 0 3px 12px rgba(0,0,0,.2); pointer-events: all;
 }
@@ -382,16 +391,18 @@ body.horror-mode .page-wrapper  { background: transparent; }
 .horror-flicker { animation: flicker-anim .15s ease infinite alternate; }
 @keyframes flicker-anim { 0%{opacity:1} 50%{opacity:.88} 100%{opacity:.95} }
 .horror-msg {
-  font-family: 'Irish Grover', cursive; font-style: italic;
+  font-family: "fairy-tale-jf", cursive; font-style: italic;
   color: #884444; font-size: .78rem; text-align: center; margin-top: 6px;
 }
 
-/* ── TYPOGRAPHY ──────────────────────────────────────────── */
-h1         { font-family: "Irish Grover"; font-size: 24px; font-weight: 700; line-height: 26.4px; }
-h3         { font-family: "Irish Grover"; font-size: 14px; font-weight: 700; line-height: 15.4px; }
-p          { font-family: "Irish Grover"; font-size: 14px; font-weight: 400; line-height: 20px; }
-blockquote { font-family: "Irish Grover"; font-size: 21px; font-weight: 400; line-height: 30px; }
-pre        { font-family: "Irish Grover"; font-size: 13px; font-weight: 400; line-height: 18.57px; }
+
+
+/* ── TYPOGRAPHY ────────────────────────────── */
+h1         { font-family: "fairy-tale-jf"; font-size: 7cm; font-weight: 700; line-height: 26.4px; }
+h3         { font-family: "english-small-caps"; font-size: 40px; font-weight: 700; line-height: 15.4px; }
+p          { font-family: "english"; font-size: 32px; font-weight: 400; line-height: 20px; }
+blockquote { font-family: "fairy-tale-jf"; font-size: 30px; font-weight: 400; line-height: 30px; }
+pre        { font-family: "fairy-tale-jf"; font-size: 20px; font-weight: 400; line-height: 18.57px; }
 .alice-regular { font-family: "Alice", serif; font-weight: 400; font-style: normal; }
 
 /* ── RESPONSIVE ──────────────────────────────────────────── */
