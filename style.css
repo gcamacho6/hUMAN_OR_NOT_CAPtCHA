@@ -58,7 +58,6 @@ body {
 body.horror-mode {
   background-image: none !important;
   background-color: #050505 !important;
-  cursor: none !important;
 }
 
 /* ── PAGE LAYOUT ─────────────────────────────────────────────
@@ -111,7 +110,7 @@ body.horror-mode {
 .puzzle-title {
   font-family: 'Alice', serif;
   color: var(--teal);
-  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+  font-size: clamp(1.2rem, 2.6vw, 1.5rem);
   text-align: center;
   margin-bottom: 6px;
   line-height: 1.3;
@@ -123,7 +122,7 @@ body.horror-mode {
   font-weight: 400;
   font-style: normal;
   color: #7a6040;
-  font-size: 0.78rem;
+  font-size: 1.0rem;
   text-align: center;
   margin-bottom: 18px;
   line-height: 1.4;
@@ -165,7 +164,7 @@ body.horror-mode {
 .result-fail {
   display: none; text-align: center; margin-top: 18px;
   padding: 14px 20px; border-radius: 8px;
-  font-family: "fairy-tale-jf", cursive; font-size: 0.92rem; font-weight: 400; font-style: normal; font-size: 1rem; line-height: 1.5;
+  font-family: "Irish Grover", cursive; font-size: 0.92rem; font-weight: 400; font-style: normal; font-size: 1rem; line-height: 1.5;
 }
 .result-pass { background: rgba(131,153,88,.25); color: var(--dark); border: 2px solid var(--sage); }
 .result-fail { background: rgba(211,150,140,.25); color: #7a2010; border: 2px solid var(--rose); }
@@ -173,16 +172,16 @@ body.horror-mode {
 /* ── PUZZLE 1 — Dress the Button ─────────────────────────── */
 #p-dress { width: 100%; }
 .dress-stage {
-  display: flex; gap: 20px; align-items: flex-start; justify-content: center;
+  display: flex; gap: 70px; align-items: flex-start; justify-content: center;
   flex-wrap: wrap; margin: 10px 0 16px;
 }
 .icons-tray {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
   padding: 12px; background: rgba(16,86,102,.07); border: 1.5px dashed #b0a070;
-  border-radius: 10px; min-width: 160px;
+  border-radius: 20px; min-width: 320px;
 }
 .drag-icon {
-  font-size: 1.8rem; text-align: center; padding: 8px;
+  font-size: 2.8rem; text-align: center; padding: 8px;
   background: rgba(247,244,213,.85); border: 1.5px solid #c4b080; border-radius: 8px;
   cursor: grab; user-select: none; transition: transform .15s, box-shadow .15s;
   touch-action: none;
@@ -192,7 +191,7 @@ body.horror-mode {
 .drag-icon.dragging { opacity: .5; }
 
 .drop-zone {
-  width: 160px; min-height: 180px;
+  width: 320px; min-height: 180px;
   border: 3px dashed var(--teal); border-radius: 12px;
   background: rgba(247,244,213,.6);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -203,10 +202,6 @@ body.horror-mode {
   font-family: 'Irish Grover', cursive; font-size: 20px; color: #9a8a60;
   margin-bottom: 8px; text-align: center;
 }
-
-font-family: "fairy-tale-jf", sans-serif;
-font-weight: 400;
-font-style: normal;
 
 .drop-zone .dropped-icons {
   display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; font-size: 1.6rem;
@@ -315,14 +310,14 @@ font-style: normal;
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0;
 }
 .body-btn {
-  background: rgba(247,244,213,.85); border: 2px solid #c4b080;
+  background: rgba(247,244,213,.85); border: 2px solid #a9976f;
   border-radius: 10px; padding: 14px 8px;
   font-family: 'double-pica', cursive; font-size: .95rem; color: var(--dark); font-style: normal; font-weight: 400;
   cursor: pointer; transition: all .2s; text-align: center; line-height: 1.3;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
-.body-btn .body-emoji { font-size: 2.6rem; }
-.body-btn:hover    { border-color: var(--teal); background: rgba(240,234,208,.95); transform: scale(1.04); }
+.body-btn .body-emoji { font-size: 2.9rem; }
+.body-btn:hover    { border-color: var(--teal); background: rgba(240,234,208,.95); transform: scale(2.04); }
 .body-btn.selected { background: var(--teal); color: var(--cream); border-color: var(--teal); }
 
 /* ── PUZZLE 7 — Chase Button ─────────────────────────────── */
@@ -391,20 +386,16 @@ body.horror-mode .page-wrapper  { background: transparent; }
 .horror-flicker { animation: flicker-anim .15s ease infinite alternate; }
 @keyframes flicker-anim { 0%{opacity:1} 50%{opacity:.88} 100%{opacity:.95} }
 .horror-msg {
-  font-family: "fairy-tale-jf", cursive; font-style: italic;
+  font-family: "double-pica", cursive; font-style: italic;
   color: #884444; font-size: .90rem; text-align: center; margin-top: 6px;
 }
-
-font-family: "double-pica", serif;
-font-weight: 400;
-font-style: normal;
 
 /* ── TYPOGRAPHY ────────────────────────────── */
 h1         { font-family: "fairy-tale-jf"; font-size: 8cm; font-weight: 700; line-height: 26.4px; }
 h3         { font-family: "english-small-caps"; font-size: 100px; font-weight: 700; line-height: 15.4px; }
-p          { font-family: "double-pica"; font-size: 90px; font-weight: 400; line-height: 20px; font-style: normal; }
-blockquote { font-family: "fairy-tale-jf"; font-size: 60px; font-weight: 400; line-height: 30px; }
-pre        { font-family: "fairy-tale-jf"; font-size: 40px; font-weight: 400; line-height: 18.57px; }
+p          { font-family: "double-pica"; font-size: 100px; font-weight: 400; line-height: 20px; font-style: normal; }
+blockquote { font-family: "double-pica"; font-size: 60px; font-weight: 400; line-height: 30px; }
+pre        { font-family: "double-pica"; font-size: 60px; font-weight: 400; line-height: 18.57px; }
 .alice-regular { font-family: "Alice", serif; font-weight: 400; font-style: normal; }
 
 /* ── RESPONSIVE ──────────────────────────────────────────── */
@@ -414,3 +405,20 @@ pre        { font-family: "fairy-tale-jf"; font-size: 40px; font-weight: 400; li
   .icons-tray  { grid-template-columns: repeat(3, 1fr); }
   .chase-arena { height: 160px; }
 }
+
+#p-text-sound .options p,
+#p-audio-sound .audio-grid p {
+  font-size: 1.1rem !important;
+  color: var(--dark) !important;
+}
+
+#p-horror,
+#p-chase,
+#horrorFrame,
+#chaseArena,
+#horror-exit-btn,
+.chase-btn {
+  pointer-events: all;
+  z-index: 20;
+}
+
